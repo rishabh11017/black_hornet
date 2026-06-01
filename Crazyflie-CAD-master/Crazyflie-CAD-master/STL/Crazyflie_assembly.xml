@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<SimMechanicsImportXML version="1.0" xmlns="urn:mathworks:simmechanics:import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Created by="" on="07/26/15||01:10:56" using="SimMechanics Link Version 4.2" from="SolidWorks 23.3.0"/>
+<ModelUnits mass="kilogram" length="millimeter"/>
+<DataUnits mass="kilogram" length="meter"/>
+<RootAssembly name="Crazyflie_assembly" uid="Crazyflie_assembly" version="255">
+<AssemblyFile name="Crazyflie_assembly.SLDASM" type="SolidWorks Assembly"/>
+<InstanceTree>
+<Instance name="7mm motor mount-4" uid="7mm motor mount-4" entityUid="7mm motor mount*:*Default">
+<Transform>
+<Rotation>1 0 4.70179e-014 -4.67404e-014 0 1 0 -1 0</Rotation>
+<Translation>-0.00459699 0.00395103 0.0361786</Translation>
+</Transform>
+</Instance>
+<Instance name="7mm motor mount-5" uid="7mm motor mount-5" entityUid="7mm motor mount*:*Default">
+<Transform>
+<Rotation>1.76525e-014 -1.91513e-014 -1 1 -1.88738e-014 1.76525e-014 -1.88738e-014 -1 1.91513e-014</Rotation>
+<Translation>0.0586891 0.00395103 0.0361786</Translation>
+</Transform>
+</Instance>
+<Instance name="7x15 motor-1" uid="7x15 motor-1" entityUid="7x15 motor*:*Default">
+<Transform>
+<Rotation>0.983151 0 -0.182793 0.182793 0 0.983151 0 -1 0</Rotation>
+<Translation>-0.00459699 0.0672371 0.0439286</Translation>
+</Transform>
+</Instance>
+<Instance name="7x15 motor-2" uid="7x15 motor-2" entityUid="7x15 motor*:*Default">
+<Transform>
+<Rotation>0.153368 0 -0.988169 0.988169 0 0.153368 0 -1 0</Rotation>
+<Translation>0.0586891 0.00395103 0.0439286</Translation>
+</Transform>
+</Instance>
+<Instance name="7x15 motor-3" uid="7x15 motor-3" entityUid="7x15 motor*:*Default">
+<Transform>
+<Rotation>0.896202 0 -0.443646 0.443646 0 0.896202 0 -1 0</Rotation>
+<Translation>0.0586891 0.0672371 0.0439286</Translation>
+</Transform>
+</Instance>
+<Instance name="7x15 motor-4" uid="7x15 motor-4" entityUid="7x15 motor*:*Default">
+<Transform>
+<Rotation>0.267826 0 -0.963467 0.963467 0 0.267826 0 -1 0</Rotation>
+<Translation>-0.00459699 0.00395103 0.0439286</Translation>
+</Transform>
+</Instance>
+<Instance name="propeller_ccw-1" uid="propeller_ccw-1" entityUid="propeller_ccw*:*Default">
+<Transform>
+<Rotation>1 0 0 0 0 1 0 -1 0</Rotation>
+<Translation>0.0268693 0.0672371 0.0374094</Translation>
+</Transform>
+</Instance>
+<Instance name="propeller_ccw-2" uid="propeller_ccw-2" entityUid="propeller_ccw*:*Default">
+<Transform>
+<Rotation>0.99411 0 -0.108378 0.108378 0 0.99411 0 -1 0</Rotation>
+<Translation>-0.0362294 0.000502455 0.0374094</Translation>
+</Transform>
+</Instance>
+<Instance name="propeller_cw-1" uid="propeller_cw-1" entityUid="propeller_cw*:*Default">
+<Transform>
+<Rotation>-0.450142 0 -0.892957 0.892957 0 -0.450142 0 -1 0</Rotation>
+<Translation>0.0730125 -0.0244627 0.0374094</Translation>
+</Transform>
+</Instance>
+<Instance name="propeller_cw-2" uid="propeller_cw-2" entityUid="propeller_cw*:*Default">
+<Transform>
+<Rotation>0.697229 0 0.716848 -0.716848 0 0.697229 0 -1 0</Rotation>
+<Translation>-0.0267827 0.0900471 0.0374094</Translation>
+</Transform>
+</Instance>
+<Instance name="7mm motor mount-3" uid="7mm motor mount-3" entityUid="7mm motor mount*:*Default">
+<Transform>
+<Rotation>-1.16018e-014 0 1 -1 0 -1.16573e-014 0 -1 0</Rotation>
+<Translation>-0.00459699 0.0672371 0.0361786</Translation>
+</Transform>
+</Instance>
+<Instance name="header-2" uid="header-2" entityUid="header*:*Default">
+<Transform>
+<Rotation>1 0 -2.0095e-014 2.0095e-014 0 1 0 -1 0</Rotation>
+<Translation>0.017716 0.0263661 0.0341786</Translation>
+</Transform>
+</Instance>
+<Instance name="battery holder board-1" uid="battery holder board-1" entityUid="battery holder board*:*Default">
+<Transform>
+<Rotation>1 0 1.97065e-014 1.95399e-014 0 -1 0 1 0</Rotation>
+<Translation>0.016657 0.0220191 0.0307286</Translation>
+</Transform>
+</Instance>
+<Instance name="header-1" uid="header-1" entityUid="header*:*Default">
+<Transform>
+<Rotation>1 0 -2.43139e-014 2.43139e-014 0 1 0 -1 0</Rotation>
+<Translation>0.017716 0.0471361 0.0341786</Translation>
+</Transform>
+</Instance>
+<Instance name="pcb-1" uid="pcb-1" grounded="true" entityUid="pcb*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.027046 0.0355941 0.0382786</Translation>
+</Transform>
+</Instance>
+<Instance name="7mm motor mount-1" uid="7mm motor mount-1" entityUid="7mm motor mount*:*Default">
+<Transform>
+<Rotation>-1 0 -1.32672e-014 1.32117e-014 0 -1 0 -1 6.51731e-016</Rotation>
+<Translation>0.0586891 0.0672371 0.0361786</Translation>
+</Transform>
+</Instance>
+<Instance name="battery bc-bl-01-a-1" uid="battery bc-bl-01-a-1" entityUid="battery bc-bl-01-a*:*Default">
+<Transform>
+<Rotation>1 0 0 0 0 1 0 -1 0</Rotation>
+<Translation>0.015546 0.0433661 0.0382786</Translation>
+</Transform>
+</Instance>
+</InstanceTree>
+<Constraints>
+<Coincident name="Coincident2">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0.029398 0.0271352 0.00165</Position>
+<Axis>0.707107 0.707107 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-1</Uid>
+</InstancePath>
+<Position>0.00263452 -0.00818839 0.00411835</Position>
+<Axis>-0.707107 0 -0.707107</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident3">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0 0.0144491 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-1</Uid>
+</InstancePath>
+<Position>0.0153442 -0.0021 0.017607</Position>
+<Axis>-2.37236e-016 -1 2.64992e-016</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident4">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0.0218551 0.0195923 0.00165</Position>
+<Axis>0.707107 -0.707107 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-1</Uid>
+</InstancePath>
+<Position>0.0153442 -0.0021 0.017607</Position>
+<Axis>0.707107 9.55288e-016 -0.707107</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident5">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>-0.0271352 0.029398 0.00165</Position>
+<Axis>-0.707107 0.707107 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-3</Uid>
+</InstancePath>
+<Position>0.00263452 -0.00818839 0.00411835</Position>
+<Axis>-0.707107 0 -0.707107</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident6">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0 0.0144491 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-3</Uid>
+</InstancePath>
+<Position>0.0153442 -0.0021 0.017607</Position>
+<Axis>2.06853e-016 -1 -1.23586e-016</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident7">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>-0.0195923 0.0218551 0.00165</Position>
+<Axis>0.707107 0.707107 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-3</Uid>
+</InstancePath>
+<Position>0.0153442 -0.0021 0.017607</Position>
+<Axis>0.707107 3.66504e-016 -0.707107</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident8">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0 0.0144491 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-4</Uid>
+</InstancePath>
+<Position>0.0153442 -0.0021 0.017607</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident9">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>-0.0218551 -0.0195923 0.00165</Position>
+<Axis>-0.707107 0.707107 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-4</Uid>
+</InstancePath>
+<Position>0.0153442 -0.0021 0.017607</Position>
+<Axis>0.707107 4.97152e-016 -0.707107</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident10">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>-0.029398 -0.0271352 0.00165</Position>
+<Axis>-0.707107 -0.707107 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-4</Uid>
+</InstancePath>
+<Position>0.00263452 -0.00818839 0.00411835</Position>
+<Axis>-0.707107 0 -0.707107</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident11">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0.0271352 -0.029398 0.00165</Position>
+<Axis>0.707107 -0.707107 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-5</Uid>
+</InstancePath>
+<Position>0.00263452 -0.00818839 0.00411835</Position>
+<Axis>-0.707107 0 -0.707107</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident12">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0 0.0144491 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-5</Uid>
+</InstancePath>
+<Position>0.0153442 -0.0021 0.017607</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident13">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0.0195923 -0.0218551 0.00165</Position>
+<Axis>-0.707107 -0.707107 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-5</Uid>
+</InstancePath>
+<Position>0.0153442 -0.0021 0.017607</Position>
+<Axis>0.707107 4.64634e-016 -0.707107</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric1">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7mm motor mount-3</Uid>
+</InstancePath>
+<Position>0 -0.01 0</Position>
+<Axis>-1.11022e-016 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7x15 motor-1</Uid>
+</InstancePath>
+<Position>0 0.016 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident14">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-3</Uid>
+</InstancePath>
+<Position>0 -0.00825 0</Position>
+<Axis>-1.11022e-016 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7x15 motor-1</Uid>
+</InstancePath>
+<Position>0 -0.0005 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric2">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7mm motor mount-4</Uid>
+</InstancePath>
+<Position>0 -0.01 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7x15 motor-4</Uid>
+</InstancePath>
+<Position>0 0.016 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident15">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-4</Uid>
+</InstancePath>
+<Position>0 -0.00825 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7x15 motor-4</Uid>
+</InstancePath>
+<Position>0 -0.0005 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric3">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7mm motor mount-5</Uid>
+</InstancePath>
+<Position>0 -0.01 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7x15 motor-2</Uid>
+</InstancePath>
+<Position>0 0.016 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident16">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-5</Uid>
+</InstancePath>
+<Position>0 -0.00825 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7x15 motor-2</Uid>
+</InstancePath>
+<Position>0 -0.0005 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric4">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7mm motor mount-1</Uid>
+</InstancePath>
+<Position>0 -0.01 0</Position>
+<Axis>3.33067e-016 1 -3.60822e-016</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7x15 motor-3</Uid>
+</InstancePath>
+<Position>0 0.016 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident17">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7mm motor mount-1</Uid>
+</InstancePath>
+<Position>0 -0.00825 0</Position>
+<Axis>3.33067e-016 1 -3.60822e-016</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7x15 motor-3</Uid>
+</InstancePath>
+<Position>0 -0.0005 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric5">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7x15 motor-3</Uid>
+</InstancePath>
+<Position>0 0.0195 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>propeller_ccw-1</Uid>
+</InstancePath>
+<Position>0.0318198 0.00944345 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident18">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7x15 motor-3</Uid>
+</InstancePath>
+<Position>0 0.016 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>propeller_ccw-1</Uid>
+</InstancePath>
+<Position>0.0318198 0.00948076 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric6">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7x15 motor-4</Uid>
+</InstancePath>
+<Position>0 0.0195 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>propeller_ccw-2</Uid>
+</InstancePath>
+<Position>0.0318198 0.00944345 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident19">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7x15 motor-4</Uid>
+</InstancePath>
+<Position>0 0.016 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>propeller_ccw-2</Uid>
+</InstancePath>
+<Position>0.0318198 0.00948076 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric7">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7x15 motor-2</Uid>
+</InstancePath>
+<Position>0 0.0195 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>propeller_cw-1</Uid>
+</InstancePath>
+<Position>0.0318198 0.00944345 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident20">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7x15 motor-2</Uid>
+</InstancePath>
+<Position>0 0.016 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>propeller_cw-1</Uid>
+</InstancePath>
+<Position>0.0318198 0.00948076 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric8">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>7x15 motor-1</Uid>
+</InstancePath>
+<Position>0 0.0195 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>propeller_cw-2</Uid>
+</InstancePath>
+<Position>0.0318198 0.00944345 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident21">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>7x15 motor-1</Uid>
+</InstancePath>
+<Position>0 0.016 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>propeller_cw-2</Uid>
+</InstancePath>
+<Position>0.0318198 0.00948076 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident22">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>0 0.0144491 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>battery bc-bl-01-a-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident23">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>-0.0115 -0.009228 -0.0026</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>battery bc-bl-01-a-1</Uid>
+</InstancePath>
+<Position>0 0.0067 -0.017</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident24">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>-0.0115 0.009228 -0.0026</Position>
+<Axis>-1 -1.49933e-015 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>battery bc-bl-01-a-1</Uid>
+</InstancePath>
+<Position>0 0.0067 0</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident25">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>battery bc-bl-01-a-1</Uid>
+</InstancePath>
+<Position>0 0.0067 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>battery holder board-1</Uid>
+</InstancePath>
+<Position>0 0.00085 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric9">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>-0.008 0.010385 -0.0026</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>header-1</Uid>
+</InstancePath>
+<Position>0.00133 -0.00777 -0.001157</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric10">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>battery holder board-1</Uid>
+</InstancePath>
+<Position>0.018409 0.00085 -0.02396</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>header-1</Uid>
+</InstancePath>
+<Position>0.01735 -0.00777 -0.001157</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident26">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>battery holder board-1</Uid>
+</InstancePath>
+<Position>0 0.00085 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>header-1</Uid>
+</InstancePath>
+<Position>0 0.0026 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric11">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>battery holder board-1</Uid>
+</InstancePath>
+<Position>0.002389 0.00085 -0.02396</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>header-1</Uid>
+</InstancePath>
+<Position>0.00133 -0.00777 -0.001157</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric13">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>battery holder board-1</Uid>
+</InstancePath>
+<Position>0.002389 0.00085 -0.00319</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>header-2</Uid>
+</InstancePath>
+<Position>0.00133 -0.00777 -0.001157</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric14">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>battery holder board-1</Uid>
+</InstancePath>
+<Position>0.018409 0.00085 -0.00319</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>header-2</Uid>
+</InstancePath>
+<Position>0.01735 -0.00777 -0.001157</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident27">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>battery holder board-1</Uid>
+</InstancePath>
+<Position>0 0.00085 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>header-2</Uid>
+</InstancePath>
+<Position>0 0.0026 0</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric23">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>pcb-1</Uid>
+</InstancePath>
+<Position>-0.008 -0.010385 -0.0026</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>header-2</Uid>
+</InstancePath>
+<Position>0.00133 -0.00777 -0.001157</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+</Constraints>
+</RootAssembly>
+<Assemblies>
+</Assemblies>
+<Parts>
+<Part name="7mm motor mount" uid="7mm motor mount*:*Default" version="169">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="7mm motor mount.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.000517974</Mass>
+<CenterOfMass>0.0026005 -0.00510747 0.002601</CenterOfMass>
+<Inertia>2.56977e-008 3.74309e-008 2.5701e-008 4.92531e-009 1.4974e-008 4.92584e-009</Inertia>
+</MassProperties>
+<GeometryFile name="7mm motor mount_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="1" g="1" b="1" a="0.5"/>
+<Diffuse r="1" g="1" b="1" a="0.5"/>
+<Specular r="0.5" g="0.5" b="0.5" a="0.5"/>
+<Emissive r="0" g="0" b="0" a="0.5"/>
+<Shininess>0.2</Shininess>
+</VisualProperties>
+</Part>
+<Part name="7x15 motor" uid="7x15 motor*:*Default" version="133">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="7x15 motor.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.00171554</Mass>
+<CenterOfMass>0 0.00778661 0</CenterOfMass>
+<Inertia>4.43618e-008 1.04625e-008 4.43618e-008 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="7x15 motor_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.666667" g="0.698039" b="0.768627" a="1"/>
+<Diffuse r="0.666667" g="0.698039" b="0.768627" a="1"/>
+<Specular r="0.333333" g="0.34902" b="0.384314" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="battery bc-bl-01-a" uid="battery bc-bl-01-a*:*Default" version="111">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="battery bc-bl-01-a.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.00706648</Mass>
+<CenterOfMass>0.0115 0.00335 -0.0085</CenterOfMass>
+<Inertia>1.96378e-007 4.81205e-007 3.37614e-007 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="battery bc-bl-01-a_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.898039" g="0.917647" b="0.929412" a="1"/>
+<Diffuse r="0.898039" g="0.917647" b="0.929412" a="1"/>
+<Specular r="0.44902" g="0.458824" b="0.464706" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="battery holder board" uid="battery holder board*:*Default" version="119">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="battery holder board.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.000616076</Mass>
+<CenterOfMass>0.0103898 0.000425 -0.013575</CenterOfMass>
+<Inertia>5.61629e-008 8.26746e-008 2.65858e-008 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="battery holder board_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0" g="0.247059" b="0.0235294" a="1"/>
+<Diffuse r="0" g="0.247059" b="0.0235294" a="1"/>
+<Specular r="0" g="0.0741177" b="0.00705882" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.5</Shininess>
+</VisualProperties>
+</Part>
+<Part name="header" uid="header*:*Default" version="113">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="header.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.00015527</Mass>
+<CenterOfMass>0.00933263 0.000680594 -0.001157</CenterOfMass>
+<Inertia>1.08445e-009 4.44142e-009 5.42146e-009 0 0 -7.09291e-013</Inertia>
+</MassProperties>
+<GeometryFile name="header_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="1" g="1" b="1" a="1"/>
+<Diffuse r="1" g="1" b="1" a="1"/>
+<Specular r="1" g="1" b="1" a="1"/>
+<Emissive r="0.3" g="0.3" b="0.3" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="pcb" uid="pcb*:*Default" version="176">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="pcb.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.0027</Mass>
+<CenterOfMass>0.00025243 0 0.000825</CenterOfMass>
+<Inertia>4.43979e-007 4.54309e-007 8.97063e-007 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="pcb_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.109804" g="0.109804" b="0.109804" a="1"/>
+<Diffuse r="0.109804" g="0.109804" b="0.109804" a="1"/>
+<Specular r="0.0768627" g="0.0768627" b="0.0768627" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="propeller_ccw" uid="propeller_ccw*:*Default" version="316">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="propeller_ccw.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.000257113</Mass>
+<CenterOfMass>0.0318198 0.0113044 4.82078e-011</CenterOfMass>
+<Inertia>3.97183e-008 4.01825e-008 7.70554e-010 0 3.52931e-010 0</Inertia>
+</MassProperties>
+<GeometryFile name="propeller_ccw_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.101961" g="0.101961" b="0.101961" a="1"/>
+<Diffuse r="0.0713725" g="0.0713725" b="0.0713725" a="1"/>
+<Specular r="0.00509804" g="0.00509804" b="0.00509804" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="propeller_cw" uid="propeller_cw*:*Default" version="556">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="propeller_cw.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.000257076</Mass>
+<CenterOfMass>0.0318198 0.0113044 1.5151e-010</CenterOfMass>
+<Inertia>3.96954e-008 4.01593e-008 7.70386e-010 0 -3.52952e-010 0</Inertia>
+</MassProperties>
+<GeometryFile name="propeller_cw_Default_sldprt.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.101961" g="0.101961" b="0.101961" a="1"/>
+<Diffuse r="0.0713725" g="0.0713725" b="0.0713725" a="1"/>
+<Specular r="0.00509804" g="0.00509804" b="0.00509804" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+</Parts>
+</SimMechanicsImportXML>
