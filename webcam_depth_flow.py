@@ -1,293 +1,287 @@
+import rclpy
+from rclpy.node import Node
+
+from sensor_msgs.msg import Image
+from std_msgs.msg import String
+
+from cv_bridge import CvBridge
+
 import cv2
 import numpy as np
-from PIL import Image
+
+from PIL import Image as PILImage
+
 from transformers import pipeline
 
-# ==========================================
-# LOAD DEPTH ANYTHING V2
-# ==========================================
 
-print("Loading Depth Anything V2...")
+class DepthObstacleNode(Node):
 
-depth_estimator = pipeline(
-    task="depth-estimation",
-    model="depth-anything/Depth-Anything-V2-Small-hf"
-)
+    def __init__(self):
 
-print("Model Loaded Successfully")
+        super().__init__('depth_obstacle_node')
 
-# ==========================================
-# WEBCAM
-# ==========================================
+        print("Loading Depth Anything V2...")
 
-cap = cv2.VideoCapture(0)
+        self.depth_estimator = pipeline(
+            task="depth-estimation",
+            model="depth-anything/Depth-Anything-V2-Small-hf"
+        )
 
-if not cap.isOpened():
-    print("Cannot access webcam")
-    exit()
+        print("Depth Anything Loaded")
 
-# ==========================================
-# PARAMETERS
-# ==========================================
+        self.bridge = CvBridge()
 
-DANGER_DEPTH_THRESHOLD = 180
+        # ===================================
+        # CHANGE THIS IF YOUR CAMERA TOPIC
+        # IS DIFFERENT
+        # ===================================
 
-WARNING_THRESHOLD = 0.03
-STOP_THRESHOLD = 0.10
+        self.subscription = self.create_subscription(
+            Image,
+            '/camera/image_raw',
+            self.image_callback,
+            10
+        )
 
-CONFIRM_FRAMES = 3
+        # ===================================
+        # OUTPUT TOPIC
+        # ===================================
 
-danger_counter = 0
+        self.warning_pub = self.create_publisher(
+            String,
+            '/obstacle_warning',
+            10
+        )
 
-# ==========================================
-# MAIN LOOP
-# ==========================================
+        # ===================================
+        # PARAMETERS
+        # ===================================
 
-while True:
+        self.DANGER_DEPTH_THRESHOLD = 180
 
-    ret, frame = cap.read()
+        self.WARNING_THRESHOLD = 0.03
 
-    if not ret:
-        break
+        self.STOP_THRESHOLD = 0.10
 
-    frame = cv2.resize(frame, (320, 240))
+        self.CONFIRM_FRAMES = 3
 
-    # ======================================
-    # DEPTH ANYTHING
-    # ======================================
+        self.danger_counter = 0
 
-    rgb_frame = cv2.cvtColor(
-        frame,
-        cv2.COLOR_BGR2RGB
-    )
+    def image_callback(self, msg):
 
-    pil_image = Image.fromarray(
-        rgb_frame
-    )
+        frame = self.bridge.imgmsg_to_cv2(
+            msg,
+            desired_encoding='bgr8'
+        )
 
-    result = depth_estimator(
-        pil_image
-    )
+        frame = cv2.resize(
+            frame,
+            (320, 240)
+        )
 
-    depth = np.array(
-        result["depth"]
-    )
+        # ===================================
+        # DEPTH ANYTHING
+        # ===================================
 
-    depth = cv2.normalize(
-        depth,
-        None,
-        0,
-        255,
-        cv2.NORM_MINMAX
-    )
+        rgb_frame = cv2.cvtColor(
+            frame,
+            cv2.COLOR_BGR2RGB
+        )
 
-    depth = depth.astype(
-        np.uint8
-    )
+        pil_image = PILImage.fromarray(
+            rgb_frame
+        )
 
-    h, w = depth.shape
+        result = self.depth_estimator(
+            pil_image
+        )
 
-    # ======================================
-    # SAFETY CORRIDOR
-    # ======================================
+        depth = np.array(
+            result["depth"]
+        )
 
-    left_x = int(0.35 * w)
-    right_x = int(0.65 * w)
+        depth = cv2.normalize(
+            depth,
+            None,
+            0,
+            255,
+            cv2.NORM_MINMAX
+        )
 
-    top_y = int(0.25 * h)
-    bottom_y = int(0.75 * h)
+        depth = depth.astype(
+            np.uint8
+        )
 
-    corridor_depth = depth[
-        top_y:bottom_y,
-        left_x:right_x
-    ]
+        h, w = depth.shape
 
-    # ======================================
-    # DANGER PIXELS
-    # ======================================
+        # ===================================
+        # SAFETY CORRIDOR
+        # ===================================
 
-    danger_pixels = np.sum(
-        corridor_depth >
-        DANGER_DEPTH_THRESHOLD
-    )
+        left_x = int(0.35 * w)
+        right_x = int(0.65 * w)
 
-    total_pixels = (
-        corridor_depth.size
-    )
+        top_y = int(0.25 * h)
+        bottom_y = int(0.75 * h)
 
-    danger_ratio = (
-        danger_pixels /
-        total_pixels
-    )
+        corridor_depth = depth[
+            top_y:bottom_y,
+            left_x:right_x
+        ]
 
-    # ======================================
-    # STATUS LOGIC
-    # ======================================
+        # ===================================
+        # DANGER PIXELS
+        # ===================================
 
-    status = "CLEAR"
+        danger_pixels = np.sum(
+            corridor_depth >
+            self.DANGER_DEPTH_THRESHOLD
+        )
 
-    if danger_ratio > STOP_THRESHOLD:
+        total_pixels = corridor_depth.size
 
-        danger_counter += 1
+        danger_ratio = (
+            danger_pixels /
+            total_pixels
+        )
 
-    else:
-
-        danger_counter = 0
-
-    if danger_counter >= CONFIRM_FRAMES:
-
-        status = "STOP"
-
-    elif danger_ratio > WARNING_THRESHOLD:
-
-        status = "WARNING"
-
-    else:
+        # ===================================
+        # STATUS LOGIC
+        # ===================================
 
         status = "CLEAR"
 
-    # ======================================
-    # CORRIDOR COLOR
-    # ======================================
+        if danger_ratio > self.STOP_THRESHOLD:
 
-    corridor_color = (
-        0,
-        255,
-        0
-    )
+            self.danger_counter += 1
 
-    if status == "WARNING":
+        else:
+
+            self.danger_counter = 0
+
+        if self.danger_counter >= self.CONFIRM_FRAMES:
+
+            status = "STOP"
+
+        elif danger_ratio > self.WARNING_THRESHOLD:
+
+            status = "WARNING"
+
+        else:
+
+            status = "CLEAR"
+
+        # ===================================
+        # PUBLISH STATUS
+        # ===================================
+
+        status_msg = String()
+
+        status_msg.data = status
+
+        self.warning_pub.publish(
+            status_msg
+        )
+
+        # ===================================
+        # DISPLAY
+        # ===================================
 
         corridor_color = (
             0,
             255,
-            255
+            0
         )
 
-    if status == "STOP":
+        if status == "WARNING":
 
-        corridor_color = (
-            0,
-            0,
-            255
-        )
+            corridor_color = (
+                0,
+                255,
+                255
+            )
 
-    cv2.rectangle(
-        frame,
-        (left_x, top_y),
-        (right_x, bottom_y),
-        corridor_color,
-        2
-    )
+        if status == "STOP":
 
-    # ======================================
-    # DISPLAY DATA
-    # ======================================
+            corridor_color = (
+                0,
+                0,
+                255
+            )
 
-    cv2.putText(
-        frame,
-        f"Danger Ratio: {danger_ratio:.3f}",
-        (10, 30),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        0.55,
-        (255, 0, 0),
-        2
-    )
-
-    cv2.putText(
-        frame,
-        f"Danger Pixels: {danger_pixels}",
-        (10, 60),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        0.55,
-        (255, 0, 0),
-        2
-    )
-
-    cv2.putText(
-        frame,
-        f"Counter: {danger_counter}",
-        (10, 90),
-        cv2.FONT_HERSHEY_SIMPLEX,
-        0.55,
-        (255, 0, 0),
-        2
-    )
-
-    # ======================================
-    # STATUS DISPLAY
-    # ======================================
-
-    if status == "STOP":
-
-        print("STOP")
-
-        cv2.putText(
+        cv2.rectangle(
             frame,
-            "STOP",
-            (95, 130),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            1.5,
-            (0, 0, 255),
-            3
-        )
-
-        cv2.putText(
-            frame,
-            "CHANGE ROUTE",
-            (40, 170),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.9,
-            (0, 0, 255),
+            (left_x, top_y),
+            (right_x, bottom_y),
+            corridor_color,
             2
         )
 
-    elif status == "WARNING":
+        cv2.putText(
+            frame,
+            f"Danger Ratio: {danger_ratio:.3f}",
+            (10, 30),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.55,
+            (255, 0, 0),
+            2
+        )
 
         cv2.putText(
             frame,
-            "WARNING",
-            (70, 130),
+            f"Danger Pixels: {danger_pixels}",
+            (10, 60),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.55,
+            (255, 0, 0),
+            2
+        )
+
+        cv2.putText(
+            frame,
+            f"Counter: {self.danger_counter}",
+            (10, 90),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.55,
+            (255, 0, 0),
+            2
+        )
+
+        cv2.putText(
+            frame,
+            status,
+            (100, 130),
             cv2.FONT_HERSHEY_SIMPLEX,
             1.2,
-            (0, 255, 255),
+            corridor_color,
             3
         )
 
-    else:
-
-        cv2.putText(
-            frame,
-            "PATH CLEAR",
-            (70, 130),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            1,
-            (0, 255, 0),
-            2
+        cv2.imshow(
+            "AI Deck View",
+            frame
         )
 
-    # ======================================
-    # WINDOWS
-    # ======================================
+        cv2.imshow(
+            "Depth Map",
+            depth
+        )
 
-    cv2.imshow(
-        "Drone View",
-        frame
-    )
+        cv2.waitKey(1)
 
-    cv2.imshow(
-        "Depth Map",
-        depth
-    )
 
-    key = cv2.waitKey(1)
+def main():
 
-    if key == ord('q'):
-        break
+    rclpy.init()
 
-# ==========================================
-# CLEANUP
-# ==========================================
+    node = DepthObstacleNode()
 
-cap.release()
-cv2.destroyAllWindows()
+    rclpy.spin(node)
+
+    node.destroy_node()
+
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()
