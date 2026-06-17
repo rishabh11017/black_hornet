@@ -4,6 +4,7 @@ import numpy as np
 from geometry_msgs.msg import PoseStamped, Wrench
 from nav_msgs.msg import Odometry
 import pandas as pd
+from sensor_msgs.msg import Imu
 
 
 
@@ -24,9 +25,9 @@ class GeometricController(Node):
         super().__init__('geometric_controller')
 
             # ── Gains ──────────────────────────────────────────────────
-        self.Kp = np.diag([4.0, 4.0, 8.0])
+        self.Kp = np.diag([02.0, 0.10, 8.0])
 
-        self.Kd = np.diag([0.0, 0.0, 2.0])
+        self.Kd = np.diag([1.0, 1.0, 2.0])
 
         self.Ki = np.zeros((3,3))
 
@@ -72,7 +73,8 @@ class GeometricController(Node):
             self.odom_callback,
             1
         )
-
+        self.imu_sub = self.create_subscription(Imu, '/imu/data', self.imu_callback, 10)
+    
         # ── Publisher ──────────────────────────────────────────────
         self.force_pub = self.create_publisher(Wrench, '/block/force', 1)
 
@@ -98,24 +100,24 @@ class GeometricController(Node):
             msg.pose.pose.position.z,
         ])
      
-        self.q = np.array([
-            msg.pose.pose.orientation.w,
-            msg.pose.pose.orientation.x,
-            msg.pose.pose.orientation.y,
-            msg.pose.pose.orientation.z,
-        ])
+        # self.q = np.array([
+        #     msg.pose.pose.orientation.w,
+        #     msg.pose.pose.orientation.x,
+        #     msg.pose.pose.orientation.y,
+        #     msg.pose.pose.orientation.z,
+        # ])
         
         self.v = np.array([
             msg.twist.twist.linear.x,
             msg.twist.twist.linear.y,
             msg.twist.twist.linear.z,
         ])
-       
-        self.omega = np.array([
-            msg.twist.twist.angular.x,
-            msg.twist.twist.angular.y,
-            msg.twist.twist.angular.z,
-        ])
+      
+        # self.omega = np.array([
+        #     msg.twist.twist.angular.x,
+        #     msg.twist.twist.angular.y,
+        #     msg.twist.twist.angular.z,
+        # ])
         timestamp = self.get_clock().now().nanoseconds / 1e9
 
         row = {
@@ -140,7 +142,51 @@ class GeometricController(Node):
         }
 
         self.log_data.append(row)
-        #
+
+    def imu_callback(self, msg: Imu):
+        """Extract orientation, angular velocity, and linear acceleration from /imu/data."""
+        # 1. Save orientation quaternion matching his [w, x, y, z] order style
+        self.q = np.array([
+            msg.orientation.w,
+            msg.orientation.x,
+            msg.orientation.y,
+            msg.orientation.z,
+        ])
+    
+ # 2. Save angular velocity (omega) from the IMU
+        self.omega = np.array([
+            msg.angular_velocity.x,
+            msg.angular_velocity.y,
+            msg.angular_velocity.z,
+        ])
+       
+        # 3. Save linear acceleration from the IMU
+        self.accel = np.array([
+            msg.linear_acceleration.x,
+            msg.linear_acceleration.y,
+            msg.linear_acceleration.z,
+        ])
+        
+        # 4. Generate timestamp and log data just like his structure
+        timestamp = self.get_clock().now().nanoseconds / 1e9
+
+        imu_row = {
+            'time': timestamp,
+
+            'imu_qw': self.q[0],
+            'imu_qx': self.q[1],
+            'imu_qy': self.q[3],
+
+            'imu_wx': self.omega[0],
+            'imu_wy': self.omega[1],
+            'imu_wz': self.omega[2],
+
+            'imu_ax': self.accel[0],
+            'imu_ay': self.accel[1],
+            'imu_az': self.accel[2]
+        }
+
+        self.log_data.append(imu_row)
         
 
     # ──────────────────────────────────────────────────────────────
