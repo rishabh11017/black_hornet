@@ -25,11 +25,22 @@ def generate_launch_description():
     )
    
     bridge_odom = Node(
-    package='ros_gz_bridge',
-    executable='parameter_bridge',
-    name='quadcopter_odom_bridge',
-    arguments=['/model/quadcopter/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry'],
-    output='screen',
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='quadcopter_odom_bridge',
+        arguments=['/model/quadcopter/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry'],
+        output='screen',
+    )
+    
+    # ---------------------------------------------------------
+    # NEW: Start the ros_gz_bridge for IMU data
+    # ---------------------------------------------------------
+    bridge_imu = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='imu_bridge',
+        arguments=['/imu/data@sensor_msgs/msg/Imu[gz.msgs.IMU'],
+        output='screen',
     )
     
     # Start the force publisher node
@@ -39,15 +50,18 @@ def generate_launch_description():
         name='force_publisher',
         output='screen',
     )
+    
     geometric_controller = Node(
         package='block_position_publisher',
         executable='geometric_controller',
         name='geometric_controller',
         output='screen',
     )
+    
+    # Added bridge_imu to the actions list here:
     delayed_bridge = TimerAction(
         period=2.0,
-        actions=[bridge,force_publisher,bridge_odom,geometric_controller]
+        actions=[bridge, force_publisher, bridge_odom, geometric_controller, bridge_imu]
     )
     
     return LaunchDescription([
