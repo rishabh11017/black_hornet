@@ -1,1 +1,220 @@
+================================================================
+Controller to ROS2 (WSL2 + Windows) Setup Guide
+================================================================
 
+PREREQUISITES
+- Windows 10/11 with WSL2 installed
+- Ubuntu 24.04 in WSL2
+- ROS2 Jazzy installed in WSL2
+- Logitech F710 Wireless Gamepad (or any XInput controller)
+
+================================================================
+STEP 1: Create the Scripts in WSL2
+================================================================
+
+mkdir -p ~/ros2_ws/src/rosmaster
+cd ~/ros2_ws/src/rosmaster
+
+--- Create controller_receiver.py (ROS2 node) ---
+
+cat > controller_receiver.py << 'EOF'
+#!/usr/bin/env python3
+"""WSL2 ROS2 Controller Receiver"""
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import Joy
+import socket, json, threading
+
+class ControllerReceiver(Node):
+    def __init__(self):
+        super().__init__('controller_receiver')
+        self.publisher = self.create_publisher(Joy, '/joy', 10)
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.sock.bind(("0.0.0.0", 5555))
+        self.sock.settimeout(0.1)
+        self.prev_buttons = []
+        self.get_logger().info('Controller Receiver Node Started')
+        self.running = True
+        self.thread = threading.Thread(target=self.receive_loop, daemon=True)
+        self.thread.start()
+    
+    def receive_loop(self):
+        while self.running and rclpy.ok():
+            try:
+                data, _ = self.sock.recvfrom(1024)
+                msg_data = json.loads(data.decode())
+                msg = Joy()
+                msg.header.stamp = self.get_clock().now().to_msg()
+                msg.buttons = msg_data["buttons"]
+                msg.axes = msg_data["axes"]
+                self.publisher.publish(msg)
+                
+                if self.prev_buttons:
+                    for i, (curr, prev) in enumerate(zip(msg.buttons, self.prev_buttons)):
+                        if curr != prev:
+                            self.get_logger().info(f'Button {i}: {"PRESSED" if curr else "RELEASED"}')
+                self.prev_buttons = list(msg.buttons)
+                
+                for i, axis in enumerate(msg.axes):
+                    if abs(axis) > 0.1:
+                        self.get_logger().info(f'Axis {i} = {axis:.3f}')
+            except socket.timeout:
+                continue
+            except Exception as e:
+                self.get_logger().error(f'Error: {e}')
+    
+    def destroy_node(self):
+        self.running = False
+        self.sock.close()
+        super().destroy_node()
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = ControllerReceiver()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == "__main__":
+    main()
+EOF
+
+--- Create controller_sender.py (Windows script) ---
+
+cat > controller_sender.py << 'EOF'
+#!/usr/bin/env python3
+"""Windows Controller Sender - Zero dependencies"""
+import ctypes, socket, json, time
+from ctypes import wintypes
+
+class JOYINFOEX(ctypes.Structure):
+    _fields_ = [
+        ("dwSize", wintypes.DWORD), ("dwFlags", wintypes.DWORD),
+        ("dwXpos", wintypes.DWORD), ("dwYpos", wintypes.DWORD),
+        ("dwZpos", wintypes.DWORD), ("dwRpos", wintypes.DWORD),
+        ("dwUpos", wintypes.DWORD), ("dwVpos", wintypes.DWORD),
+        ("dwButtons", wintypes.DWORD), ("dwButtonNumber", wintypes.DWORD),
+        ("dwPOV", wintypes.DWORD), ("dwReserved1", wintypes.DWORD),
+        ("dwReserved2", wintypes.DWORD),
+    ]
+
+def main():
+    winmm = ctypes.windll.winmm
+    WSL_IP = "WSL_IP_PLACEHOLDER"
+    UDP_PORT = 5555
+    
+    joy_info = JOYINFOEX()
+    joy_info.dwSize = ctypes.sizeof(JOYINFOEX)
+    joy_info.dwFlags = 0xFF
+    
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    prev_buttons = 0
+    
+    print(f"Sending to {WSL_IP}:{UDP_PORT}")
+    print("Press Ctrl+C to quit\n")
+    
+    try:
+        while True:
+            if winmm.joyGetPosEx(0, ctypes.byref(joy_info)) == 0:
+                buttons = [1 if (joy_info.dwButtons & (1 << i)) else 0 for i in range(32)]
+                axes = [(joy_info.dwXpos - 32767) / 32767.0,
+                        (joy_info.dwYpos - 32767) / 32767.0,
+                        (joy_info.dwZpos - 32767) / 32767.0,
+                        (joy_info.dwRpos - 32767) / 32767.0,
+                        (joy_info.dwUpos - 32767) / 32767.0,
+                        (joy_info.dwVpos - 32767) / 32767.0]
+                
+                if joy_info.dwButtons != prev_buttons:
+                    for i in range(32):
+                        if (joy_info.dwButtons ^ prev_buttons) & (1 << i):
+                            print(f"Button {i}: {'PRESSED' if (joy_info.dwButtons >> i) & 1 else 'RELEASED'}")
+                prev_buttons = joy_info.dwButtons
+                
+                sock.sendto(json.dumps({"buttons": buttons, "axes": axes}).encode(), (WSL_IP, UDP_PORT))
+            time.sleep(0.02)
+    except KeyboardInterrupt:
+        print("\nExiting...")
+    finally:
+        sock.close()
+
+if __name__ == "__main__":
+    main()
+EOF
+
+================================================================
+STEP 2: Get WSL2 IP Address
+================================================================
+
+ip addr show eth0 | grep "inet "
+
+Note the IP address (e.g., 192.168.171.88)
+
+================================================================
+STEP 3: Update Windows Script with WSL IP
+================================================================
+
+WSL_IP=$(ip addr show eth0 | grep "inet " | awk '{print $2}' | cut -d/ -f1)
+sed -i "s/WSL_IP_PLACEHOLDER/$WSL_IP/" controller_sender.py
+
+================================================================
+STEP 4: Copy Windows Script to Windows Filesystem
+================================================================
+
+cp controller_sender.py /mnt/c/Users/YOUR_USERNAME/
+
+Replace YOUR_USERNAME with your actual Windows username.
+
+================================================================
+STEP 5: Run the System
+================================================================
+
+--- Terminal 1 - WSL2 (Receiver) ---
+
+source /opt/ros/jazzy/setup.bash
+cd ~/ros2_ws/src/rosmaster
+python3 controller_receiver.py
+
+--- Terminal 2 - Windows PowerShell (Sender) ---
+
+cd C:\Users\YOUR_USERNAME
+python controller_sender.py
+
+================================================================
+STEP 6: View Controller Commands
+================================================================
+
+Button presses:  [INFO] [controller_receiver]: Button X: PRESSED
+Axis movements:  [INFO] [controller_receiver]: Axis X = 0.XXX
+
+Verify with ROS2 topic:
+source /opt/ros/jazzy/setup.bash
+ros2 topic echo /joy
+
+================================================================
+CONTROLLER REQUIREMENTS
+================================================================
+- Switch on back of F710 must be set to "X" (XInput mode)
+- Verify controller in Windows: Win+R -> joy.cpl
+- No extra Python packages needed (uses built-in ctypes)
+- Works with any XInput controller (Xbox, Logitech F710, etc.)
+- Same model replacement: plug and play, no changes needed
+
+================================================================
+TROUBLESHOOTING
+================================================================
+
+If controller not detected:
+- Check switch on back is set to "X"
+- Verify in Windows: joy.cpl
+- Test with: python -c "import ctypes; print(ctypes.windll.winmm.joyGetNumDevs())"
+
+If no data in WSL:
+- Check WSL IP hasn't changed: ip addr show eth0 | grep "inet "
+- Update IP in controller_sender.py if needed
+- Check Windows Firewall isn't blocking UDP port 5555
+
+================================================================
